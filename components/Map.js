@@ -46,8 +46,8 @@ function Map({searchResults}) {
                         <Popup
                             onClose={()=> setSelectedLocation({})}
                             closeOnClick={true}
-                            latitude={51.521916}
-                            longitude={-0.135638}
+                            latitude={result.lat}
+                            longitude={result.long}
                         >
                             <p>Name: {result.title}</p>
                             <p>Rating: {result.star}</p>
