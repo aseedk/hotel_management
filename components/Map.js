@@ -1,8 +1,13 @@
 import ReactMapGL, {Marker, Popup} from 'react-map-gl';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {getCenter} from "geolib";
+import Image from "next/image";
+import {StarIcon} from "@heroicons/react/solid";
+import {useRouter} from "next/router";
 function Map({searchResults}) {
+    const router = useRouter();
     const [selectedLocation, setSelectedLocation] = useState({});
+    const [zoomOut, setZoomOut] = useState(false);
     const coordinates= searchResults?.map(result => ({
         longitude: result.long,
         latitude: result.lat
@@ -13,10 +18,17 @@ function Map({searchResults}) {
         height:"100%",
         longitude: center.longitude,
         latitude: center.latitude,
-        zoom: 11
+        zoom: 12
     });
     //Transform search result object into lat/long array
-
+    useEffect(()=>{
+        console.log(viewport);
+        if (viewport.zoom < 9){
+            setZoomOut(true);
+        }else {
+            setZoomOut(false);
+        }
+    })
     console.log(center);
     return(
         <ReactMapGL
@@ -25,7 +37,7 @@ function Map({searchResults}) {
             {...viewport}
             onViewportChange={(nextViewport)=> setViewport(nextViewport)}
         >
-            {searchResults?.map((result,index) => (
+            {!zoomOut && searchResults?.map((result,index) => (
                 <div key={index}>
                     <Marker longitude={result.long}
                             latitude={result.lat}
@@ -33,11 +45,11 @@ function Map({searchResults}) {
                             offsetLeft={-10}
                     >
                         <p role={'img'}
-                           className={'cursor-pointer text-2xl animate-bounce'}
+                           className={'cursor-pointer text-2xl animate-bounce bg-white rounded-full px-2 py-1'}
                            onClick={()=> setSelectedLocation(result)}
                            aria-label={'push-pin'}
                         >
-                            📌
+                            {result.price.split(' ')[0]}
                         </p>
                     </Marker>
 
@@ -48,14 +60,51 @@ function Map({searchResults}) {
                             closeOnClick={true}
                             latitude={result.lat}
                             longitude={result.long}
+                            className={'z-50'}
                         >
-                            <p>Name: {result.title}</p>
-                            <p>Rating: {result.star}</p>
+                            <div className={'relative h-60 w-60'}
+                                 onClick={()=>{
+                                     router.push({
+                                         pathname: '/detail',
+                                         query: {
+                                             id:'123'
+                                         }
+                                     });
+                                 }}
+                            >
+                                {/* eslint-disable-next-line jsx-a11y/alt-text */}
+                                <div className={''}>
+                                    <h3 className={"text-md font-semibold"}>{result.title}</h3>
+                                    <p className={'flex items-center'}>Rating: {result.star} <StarIcon className={'h-5 text-red-400'}/></p>
+                                </div>
+                                <div className={'absolute bottom-1 h-40 w-60'}>
+                                    <Image src={result.img}
+                                           layout={'fill'}
+                                           className={''}
+                                    />
+                                </div>
+                                {/**/}
+
+
+                            </div>
                         </Popup>
                     ): false}
                 </div>
-
             ))}
+            {zoomOut && (
+                <div>
+                    <Marker longitude={center.longitude}
+                            latitude={center.latitude}
+                            offsetTop={-20}
+                            offsetLeft={-10}
+                            onClick={()=> setSelectedLocation(center)}
+                    >
+                        <div className={'cursor-pointer rounded-b-3xl px-1 py-2 bg-white animate-bounce'}>
+                            <p className={'text-xl'}>{searchResults?.length}</p>
+                        </div>
+                    </Marker>
+                </div>
+            )}
         </ReactMapGL>
     )
 }
