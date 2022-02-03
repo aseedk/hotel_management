@@ -1,5 +1,6 @@
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import logo from '../assets/images/logo.png'
 import { DateRangePicker } from 'react-date-range';
 import Image from "next/image";
 import {SearchIcon, GlobeAltIcon, UserCircleIcon, UsersIcon, MenuIcon} from "@heroicons/react/solid";
@@ -38,17 +39,19 @@ function Header({placeholder}) {
       });
     }
     return(
-        <header className={'sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10 '}>
+        <header className={'sticky top-0 z-50 grid grid-cols-3 bg-[#f7f7f7] shadow-md p-5 md:px-10 '}>
         {/*Left */}
             <div className={'relative flex items-center h-10 cursor-pointer my-auto'}
                  onClick={()=> router.push("/")}
             >
                 {/* eslint-disable-next-line jsx-a11y/alt-text */}
-                <Image src={'https://links.papareact.com/qd3'}
-                       layout={'fill'}
+                {/*https://links.papareact.com/qd3*/}
+                <Image src={logo}
                        objectFit={'contain'}
                        objectPosition={'left'}
+                       width="80" height="80"
                 />
+                <h1 className={'text-2xl ml-2 font-semibold family-Roboto'}>Techdev</h1>
             </div>
         {/*Middle*/}
             <div className={'flex items-center md:border-2 rounded-full py-2 md:shadow-lg text-sm text-gray-900'}>
@@ -62,9 +65,15 @@ function Header({placeholder}) {
             </div>
         {/*Right*/}
             <div className={'flex items-center space-x-4 justify-end text-gray-500'}>
-                <p className={'hidden md:inline cursor-pointer'}>Become a host</p>
+                <p className={'hidden md:inline cursor-pointer'}
+                   onClick={() => {router.push({
+                       pathname: '/map',
+                   });}}
+                >
+                    Show Map
+                </p>
                 <GlobeAltIcon className={"h-6 cursor-pointer"}/>
-                <div className={'flex items-center space-x-2 border-2 p-2 rounded-full'}>
+                <div className={'flex items-center space-x-2 border-2 p-2 rounded-full bg-white'}>
                     <MenuIcon className={'h-6'}/>
                     <UserCircleIcon className={'h-6'}/>
                 </div>
