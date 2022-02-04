@@ -7,9 +7,10 @@ function MapView({searchResults}) {
         <div className={''}>
             <Header/>
             <main>
-                <h2 className={'text-4xl font-semibold my-4 mx-2'}>Discover our locations on the map</h2>
-                <div className='map px-2 w-full h-full'>
+                <h2 className={'text-4xl font-semibold my-4 mx-2 mx-auto'}>Discover our locations on the map</h2>
+                <div className='cont'>
                     <Map searchResults={searchResults}/>
+                    {/*<p>hello</p>*/}
                 </div>
             </main>
             <Footer />
