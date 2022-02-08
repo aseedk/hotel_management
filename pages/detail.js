@@ -5,7 +5,6 @@ import SmallCard from "../components/SmallCard";
 import MediumCard from "../components/MediumCard";
 import LargeCard from "../components/LargeCard";
 import Footer from "../components/Footer";
-import Map from "../Components/Map";
 import Image from "next/image";
 
 
