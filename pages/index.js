@@ -37,7 +37,7 @@ function Home({exploreData, cardsData}) {
                     </div>
                 </section>*/}
                 <section>
-                    <h2 className={'text-4xl font-semibold py-8'}>Discover our locations</h2>
+                    <h2 className={'text-4xl mx-auto font-semibold py-8'}>Discover our locations</h2>
                     <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}>
                         {exploreData?.map((item, index) =>(
                             <MediumCard

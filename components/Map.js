@@ -33,7 +33,7 @@ function Map({searchResults}) {
     return(
         <ReactMapGL
             mapStyle={"mapbox://styles/aseedk/ckywdk15r004c14t8ukgzfy7b"}
-            mapboxApiAccessToken={'pk.eyJ1IjoiYXNlZWRrIiwiYSI6ImNreXdkZzZlaTAxZnEydXF2NGJpZWxxbWsifQ.AaZxXeDyG8DX55ajg8Nwog'}
+            mapboxApiAccessToken={'pk.eyJ1IjoiYXNlZWRrIiwiYSI6ImNremF6MTN4YTA4NTEydW50cmxnYmRodnIifQ.CZl7Mza55vy7J8tYdy4eyg'}
             {...viewport}
             onViewportChange={(nextViewport)=> setViewport(nextViewport)}
         >
