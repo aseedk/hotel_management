@@ -14,8 +14,6 @@ function Map({searchResults}) {
     }));
     const center = getCenter(coordinates);
     const [viewport, setViewport] = useState({
-        width:"100%",
-        height:"100%",
         longitude: center.longitude,
         latitude: center.latitude,
         zoom: 12
@@ -34,8 +32,10 @@ function Map({searchResults}) {
         <ReactMapGL
             mapStyle={"mapbox://styles/aseedk/ckywdk15r004c14t8ukgzfy7b"}
             mapboxApiAccessToken={'pk.eyJ1IjoiYXNlZWRrIiwiYSI6ImNremF6MTN4YTA4NTEydW50cmxnYmRodnIifQ.CZl7Mza55vy7J8tYdy4eyg'}
-            {...viewport}
             onViewportChange={(nextViewport)=> setViewport(nextViewport)}
+            {...viewport}
+            style={{minWidth: "100%", minHeight: "100%"}}
+
         >
             {!zoomOut && searchResults?.map((result,index) => (
                 <div key={index}>
